@@ -17,7 +17,7 @@ public class Menu : MonoBehaviour {
     }
 
     public void showCredits() {
-
+        Application.OpenURL("https://twitter.com/DanielCarroll_");
     }
 
     IEnumerator startgameCo() {
