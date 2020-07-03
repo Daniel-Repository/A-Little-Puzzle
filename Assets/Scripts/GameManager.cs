@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviour {
         currSceneName = currentScene.name;
     }
 
+    private void Update() {
+        checkSpace();
+    }
+
     public void CompleteLevel() {
         goalAnim.enabled = false;
         playerMove.enabled = false;
@@ -67,6 +71,12 @@ public class GameManager : MonoBehaviour {
         playerMove.slidePlayer(iceBlockPos);
     }
 
+    private void checkSpace() {
+        if (Input.GetKeyDown("space") && SceneManager.GetActiveScene().buildIndex == 16) {
+            StartCoroutine(startTransition("BackToMenu"));
+        }
+    }
+
     IEnumerator wallAnimation() {
         wallAnim = wallGO.GetComponent<Animator>();
         wallAnim.enabled = true;
@@ -86,6 +96,9 @@ public class GameManager : MonoBehaviour {
         }
         else if (state == "NextLevel") {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else if (state == "BackToMenu") {
+            SceneManager.LoadScene(0);
         }
     }
 }

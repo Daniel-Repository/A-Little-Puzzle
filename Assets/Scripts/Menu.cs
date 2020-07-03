@@ -9,14 +9,21 @@ public class Menu : MonoBehaviour {
     public GameObject fadePanelGO;
 
     private Animator fadePanel;
+    AudioSource optionSelectClick;
+
+    private void Start() {
+        optionSelectClick = GetComponent<AudioSource>();
+    }
 
     public void startGame() {
+        optionSelectClick.Play();
         fadePanelGO.SetActive(true);
         fadePanel = fadePanelGO.GetComponent<Animator>();
         StartCoroutine(startgameCo());
     }
 
     public void showCredits() {
+        optionSelectClick.Play();
         Application.OpenURL("https://twitter.com/DanielCarroll_");
     }
 
