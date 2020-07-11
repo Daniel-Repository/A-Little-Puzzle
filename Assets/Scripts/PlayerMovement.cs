@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
@@ -37,7 +38,7 @@ public class PlayerMovement : MonoBehaviour {
             if (Input.GetKeyDown("w")) {
                 dir = Vector3.right;
                 lastDir = Vector3.right;
-                targetPosition = transform.position + dir;
+                targetPosition = transform.position + dir;  
             }
 
             if (Input.GetKeyDown("s")) {
@@ -74,7 +75,6 @@ public class PlayerMovement : MonoBehaviour {
         Ray ray = new Ray(transform.position, Vector3.down);
         RaycastHit hitInfo;
 
-        
         if(Physics.Raycast(ray, out hitInfo, 1) && hitInfo.distance < 1) {
             Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
         }
@@ -90,6 +90,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void slidePlayer(Vector3 iceBlockPos) {
+        canMove = false;
         var startPosition = new Vector3(iceBlockPos.x, 1, iceBlockPos.z);
         var endPosition = (new Vector3(iceBlockPos.x, 1, iceBlockPos.z)) + lastDir;
         if(endPosition != wallGO.transform.position) {
@@ -115,7 +116,6 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     IEnumerator Slide(Vector3 startPosition, Vector3 endPosition, float LerpTime) {
-
         float StartTime = Time.time;
         float EndTime = StartTime + LerpTime;
 
@@ -129,8 +129,6 @@ public class PlayerMovement : MonoBehaviour {
 
     IEnumerator Tumble(Vector3 direction) {
         isTumbling = true;
-
-        var startPosition = transform.position;
         var endPosition = transform.position + direction;
 
         var rotAxis = Vector3.Cross(Vector3.up, direction);
@@ -158,7 +156,6 @@ public class PlayerMovement : MonoBehaviour {
         }
         transform.position = endPosition;
         isTumbling = false;
-        
     }
     
 }
